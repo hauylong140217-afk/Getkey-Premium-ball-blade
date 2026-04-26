@@ -5,40 +5,43 @@
     <style>
         body { background: #0a0a0a; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding-top: 100px; }
         .container { background: #151515; padding: 40px; border-radius: 20px; border: 2px solid #007bff; display: inline-block; box-shadow: 0 0 20px #007bff55; }
-        .key-text { font-size: 32px; color: #00ff00; font-weight: bold; letter-spacing: 2px; margin: 20px 0; background: #000; padding: 10px; border-radius: 10px; }
-        .btn { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .btn:hover { background: #0056b3; scale: 1.05; }
+        .key-text { font-size: 32px; color: #00ff00; font-weight: bold; letter-spacing: 2px; margin: 20px 0; background: #000; padding: 15px; border-radius: 10px; min-width: 250px; }
+        .btn { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .btn:hover { background: #0056b3; transform: scale(1.05); }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>KEN CUTE TV</h1>
         <p>Đây là Key vĩnh viễn của bạn:</p>
-        <div class="key-text" id="key">ĐANG TẠO...</div>
+        <div class="key-text" id="keyDisplay">ĐANG TẠO...</div>
         <button class="btn" onclick="copyKey()">COPY KEY VĨNH VIỄN</button>
     </div>
 
     <script>
         function generateKey() {
-            // Tạo 4 số đầu ngẫu nhiên
-            let n1 = math.floor(Math.random() * 9);
-            let n2 = math.floor(Math.random() * 9);
-            let n3 = math.floor(Math.random() * 9);
-            let n4 = math.floor(Math.random() * 9);
+            // Dùng Math.floor (chữ M viết hoa) mới đúng chuẩn Web bạn nhé
+            let n1 = Math.floor(Math.random() * 10);
+            let n2 = Math.floor(Math.random() * 10);
+            let n3 = Math.floor(Math.random() * 10);
+            let n4 = Math.floor(Math.random() * 10);
             
-            // Số thứ 5 là "chìa khóa" (Tổng 4 số đầu rồi lấy số dư cho 7 chẳng hạn)
-            // Đây là quy luật bí mật để Script nhận diện
+            // Quy luật bí mật: số thứ 5 là số dư của tổng 4 số đầu chia cho 9
             let n5 = (n1 + n2 + n3 + n4) % 9; 
             
             return `kencute24${n1}${n2}${n3}${n4}${n5}`;
         }
 
-        const myKey = generateKey();
-        document.getElementById('key').innerText = myKey;
+        // Chạy hàm và hiển thị lên màn hình
+        window.onload = function() {
+            const myKey = generateKey();
+            document.getElementById('keyDisplay').innerText = myKey;
+        };
 
         function copyKey() {
-            navigator.clipboard.writeText(myKey);
-            alert("Đã copy Key: " + myKey);
+            const keyText = document.getElementById('keyDisplay').innerText;
+            navigator.clipboard.writeText(keyText);
+            alert("Đã copy Key: " + keyText);
         }
     </script>
 </body>
