@@ -18,19 +18,26 @@
         <button class="btn" onclick="copyKey()">COPY KEY VĨNH VIỄN</button>
     </div>
 
-    <script>
-        function generateKey() {
-            // Dùng Math.floor (chữ M viết hoa) mới đúng chuẩn Web bạn nhé
-            let n1 = Math.floor(Math.random() * 10);
-            let n2 = Math.floor(Math.random() * 10);
-            let n3 = Math.floor(Math.random() * 10);
-            let n4 = Math.floor(Math.random() * 10);
-            
-            // Quy luật bí mật: số thứ 5 là số dư của tổng 4 số đầu chia cho 9
-            let n5 = (n1 + n2 + n3 + n4) % 9; 
-            
-            return `kencute24${n1}${n2}${n3}${n4}${n5}`;
-        }
+<script>
+    function generateKey() {
+        let n1 = Math.floor(Math.random() * 10);
+        let n2 = Math.floor(Math.random() * 10);
+        let n3 = Math.floor(Math.random() * 10);
+        let n4 = Math.floor(Math.random() * 10);
+        let n5 = (n1 + n2 + n3 + n4) % 9; 
+        return `kencute24${n1}${n2}${n3}${n4}${n5}`;
+    }
+
+    window.onload = function() {
+        const myKey = generateKey();
+        document.getElementById('keyDisplay').innerText = myKey;
+        // Thêm dòng này để script Roblox có thể "đọc" ngầm
+        document.getElementById('keyData').innerText = myKey;
+    };
+</script>
+
+<div id="keyData" style="display:none;"></div>
+
 
         // Chạy hàm và hiển thị lên màn hình
         window.onload = function() {
