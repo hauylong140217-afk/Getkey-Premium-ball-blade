@@ -1,54 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>KEN CUTE TV - GET KEY</title>
+    <meta charset="UTF-8">
+    <title>KEN CUTE TV - GET KEY PREMIUM</title>
     <style>
-        body { background: #0a0a0a; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding-top: 100px; }
-        .container { background: #151515; padding: 40px; border-radius: 20px; border: 2px solid #007bff; display: inline-block; box-shadow: 0 0 20px #007bff55; }
-        .key-text { font-size: 32px; color: #00ff00; font-weight: bold; letter-spacing: 2px; margin: 20px 0; background: #000; padding: 15px; border-radius: 10px; min-width: 250px; }
-        .btn { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        body { background: #0a0a0a; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding-top: 100px; overflow: hidden; }
+        .container { 
+            background: #151515; 
+            padding: 40px; 
+            border-radius: 20px; 
+            border: 2px solid #007bff; 
+            display: inline-block; 
+            box-shadow: 0 0 20px #007bff55;
+            transition: 0.3s;
+        }
+        .container:hover { box-shadow: 0 0 35px #007bff88; }
+        h1 { margin-top: 0; color: #007bff; letter-spacing: 1px; }
+        .key-text { 
+            font-size: 32px; 
+            color: #00ff00; 
+            font-weight: bold; 
+            letter-spacing: 2px; 
+            margin: 20px 0; 
+            background: #000; 
+            padding: 15px; 
+            border-radius: 10px; 
+            min-width: 280px;
+            border: 1px solid #333;
+        }
+        .btn { 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 15px 30px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px;
+            transition: 0.2s;
+        }
         .btn:hover { background: #0056b3; transform: scale(1.05); }
+        .btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>KEN CUTE TV</h1>
-        <p>Đây là Key vĩnh viễn của bạn:</p>
-        <div class="key-text" id="keyDisplay">ĐANG TẠO...</div>
-        <button class="btn" onclick="copyKey()">COPY KEY VĨNH VIỄN</button>
+        <p>Your Permanent Key is ready:</p>
+        <div class="key-text" id="keyDisplay">GENERATING...</div>
+        <button class="btn" onclick="copyKey()">COPY KEY</button>
     </div>
 
-<script>
-    function generateKey() {
-        let n1 = Math.floor(Math.random() * 10);
-        let n2 = Math.floor(Math.random() * 10);
-        let n3 = Math.floor(Math.random() * 10);
-        let n4 = Math.floor(Math.random() * 10);
-        let n5 = (n1 + n2 + n3 + n4) % 9; 
-        return `kencute24${n1}${n2}${n3}${n4}${n5}`;
-    }
+    <div id="keyData" style="display:none;"></div>
 
-    window.onload = function() {
-        const myKey = generateKey();
-        document.getElementById('keyDisplay').innerText = myKey;
-        // Thêm dòng này để script Roblox có thể "đọc" ngầm
-        document.getElementById('keyData').innerText = myKey;
-    };
-</script>
+    <script>
+        function generateKey() {
+            let n1 = Math.floor(Math.random() * 10);
+            let n2 = Math.floor(Math.random() * 10);
+            let n3 = Math.floor(Math.random() * 10);
+            let n4 = Math.floor(Math.random() * 10);
+            
+            // Quy luật bí mật để Script Roblox check hợp lệ
+            let n5 = (n1 + n2 + n3 + n4) % 9; 
+            
+            return `kencute24${n1}${n2}${n3}${n4}${n5}`;
+        }
 
-<div id="keyData" style="display:none;"></div>
-
-
-        // Chạy hàm và hiển thị lên màn hình
+        // Chỉ dùng 1 hàm onload duy nhất
         window.onload = function() {
             const myKey = generateKey();
             document.getElementById('keyDisplay').innerText = myKey;
+            document.getElementById('keyData').innerText = myKey;
         };
 
         function copyKey() {
             const keyText = document.getElementById('keyDisplay').innerText;
-            navigator.clipboard.writeText(keyText);
-            alert("Đã copy Key: " + keyText);
+            
+            // Lệnh copy chuẩn cho cả điện thoại và máy tính
+            navigator.clipboard.writeText(keyText).then(function() {
+                alert("Copied Key: " + keyText);
+            }).catch(function() {
+                // Cách dự phòng nếu trình duyệt cũ không hỗ trợ
+                const input = document.createElement('input');
+                input.value = keyText;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert("Copied Key: " + keyText);
+            });
         }
     </script>
 </body>
