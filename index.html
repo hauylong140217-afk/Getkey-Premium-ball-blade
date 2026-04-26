@@ -59,11 +59,10 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>KEN CUTE TV</h1>
         <p>Your Premium Key is ready:</p>
-        <div class="key-text" id="keyData">GENERATING...</div>
+        <div class="key-text" id="keyData">kencute2400000</div>
         <button class="btn" onclick="copyKey()">COPY KEY</button>
     </div>
 
@@ -73,40 +72,20 @@
             let n2 = Math.floor(Math.random() * 10);
             let n3 = Math.floor(Math.random() * 10);
             let n4 = Math.floor(Math.random() * 10);
-            
-            // Quy luật: Số thứ 5 là số dư của tổng 4 số đầu chia cho 9
             let n5 = (n1 + n2 + n3 + n4) % 9; 
-            
             return `kencute24${n1}${n2}${n3}${n4}${n5}`;
         }
 
-        // Tự động tạo Key ngay khi trang vừa load
+        // Khi web load xong, nó sẽ đổi mã kencute2400000 thành mã ngẫu nhiên cho người dùng
         window.onload = function() {
             const myKey = generateKey();
-            // Cập nhật vào thẻ keyData (Script Roblox sẽ quét text trong thẻ này)
             document.getElementById('keyData').innerText = myKey;
         };
 
         function copyKey() {
             const keyText = document.getElementById('keyData').innerText;
-            
-            if (keyText === "GENERATING...") return;
-
             navigator.clipboard.writeText(keyText).then(function() {
                 alert("Copied successfully: " + keyText);
-            }).catch(function() {
-                // Phương pháp dự phòng cho các trình duyệt cũ/mobile
-                const textArea = document.createElement("textarea");
-                textArea.value = keyText;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    alert("Copied successfully: " + keyText);
-                } catch (err) {
-                    alert("Failed to copy, please copy manually!");
-                }
-                document.body.removeChild(textArea);
             });
         }
     </script>
