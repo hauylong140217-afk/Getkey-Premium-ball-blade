@@ -1,43 +1,58 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KEN CUTE TV - GET KEY PREMIUM</title>
     <style>
-        body { background: #0a0a0a; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding-top: 100px; overflow: hidden; }
+        body { 
+            background: #0a0a0a; 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden; 
+        }
         .container { 
             background: #151515; 
             padding: 40px; 
             border-radius: 20px; 
             border: 2px solid #007bff; 
-            display: inline-block; 
-            box-shadow: 0 0 20px #007bff55;
+            box-shadow: 0 0 25px #007bff44;
             transition: 0.3s;
+            max-width: 90%;
         }
-        .container:hover { box-shadow: 0 0 35px #007bff88; }
-        h1 { margin-top: 0; color: #007bff; letter-spacing: 1px; }
+        .container:hover { box-shadow: 0 0 40px #007bff77; transform: translateY(-5px); }
+        h1 { margin: 0 0 10px 0; color: #007bff; letter-spacing: 2px; font-size: 28px; }
+        p { color: #aaaaaa; margin-bottom: 25px; }
         .key-text { 
-            font-size: 32px; 
+            font-size: 30px; 
             color: #00ff00; 
             font-weight: bold; 
-            letter-spacing: 2px; 
+            letter-spacing: 3px; 
             margin: 20px 0; 
             background: #000; 
-            padding: 15px; 
-            border-radius: 10px; 
+            padding: 18px; 
+            border-radius: 12px; 
             min-width: 280px;
             border: 1px solid #333;
+            text-shadow: 0 0 10px #00ff0044;
         }
         .btn { 
             background: #007bff; 
             color: white; 
             border: none; 
-            padding: 15px 30px; 
-            border-radius: 8px; 
+            padding: 15px 35px; 
+            border-radius: 10px; 
             cursor: pointer; 
             font-weight: bold; 
             font-size: 16px;
             transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
         .btn:hover { background: #0056b3; transform: scale(1.05); }
         .btn:active { transform: scale(0.95); }
@@ -47,12 +62,10 @@
 
     <div class="container">
         <h1>KEN CUTE TV</h1>
-        <p>Your Permanent Key is ready:</p>
-        <div class="key-text" id="keyDisplay">GENERATING...</div>
+        <p>Your Premium Key is ready:</p>
+        <div class="key-text" id="keyData">GENERATING...</div>
         <button class="btn" onclick="copyKey()">COPY KEY</button>
     </div>
-
-    <div id="keyData" style="display:none;"></div>
 
     <script>
         function generateKey() {
@@ -61,34 +74,39 @@
             let n3 = Math.floor(Math.random() * 10);
             let n4 = Math.floor(Math.random() * 10);
             
-            // Quy luật bí mật để Script Roblox check hợp lệ
+            // Quy luật: Số thứ 5 là số dư của tổng 4 số đầu chia cho 9
             let n5 = (n1 + n2 + n3 + n4) % 9; 
             
             return `kencute24${n1}${n2}${n3}${n4}${n5}`;
         }
 
-        // Chỉ dùng 1 hàm onload duy nhất
+        // Tự động tạo Key ngay khi trang vừa load
         window.onload = function() {
             const myKey = generateKey();
-            document.getElementById('keyDisplay').innerText = myKey;
+            // Cập nhật vào thẻ keyData (Script Roblox sẽ quét text trong thẻ này)
             document.getElementById('keyData').innerText = myKey;
         };
 
         function copyKey() {
-            const keyText = document.getElementById('keyDisplay').innerText;
+            const keyText = document.getElementById('keyData').innerText;
             
-            // Lệnh copy chuẩn cho cả điện thoại và máy tính
+            if (keyText === "GENERATING...") return;
+
             navigator.clipboard.writeText(keyText).then(function() {
-                alert("Copied Key: " + keyText);
+                alert("Copied successfully: " + keyText);
             }).catch(function() {
-                // Cách dự phòng nếu trình duyệt cũ không hỗ trợ
-                const input = document.createElement('input');
-                input.value = keyText;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                alert("Copied Key: " + keyText);
+                // Phương pháp dự phòng cho các trình duyệt cũ/mobile
+                const textArea = document.createElement("textarea");
+                textArea.value = keyText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    alert("Copied successfully: " + keyText);
+                } catch (err) {
+                    alert("Failed to copy, please copy manually!");
+                }
+                document.body.removeChild(textArea);
             });
         }
     </script>
